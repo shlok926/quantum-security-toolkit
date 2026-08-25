@@ -1,0 +1,26 @@
+# CODEOWNERS
+#
+# This file defines who is automatically requested for review when a PR touches
+# a given path. At the project's current single-maintainer stage (see
+# docs/00_PROJECT_CONSTITUTION.md §9 Project Governance and
+# docs/27_CONTRIBUTOR_GUIDE.md §13), every path is owned by the project owner.
+# This file should be extended with named co-owners per subsystem once
+# additional maintainers join, following the ownership boundaries already
+# established by docs/07_SYSTEM_ARCHITECTURE.md's layered architecture
+# (e.g., a future dedicated owner for core/ vs. visualization/ vs. cli/).
+
+# Default owner for everything not matched below
+*                           @shlok926
+
+# Security-critical core protocol logic — highest review scrutiny
+# (see docs/11_SECURITY_ARCHITECTURE.md §4 critical-correctness note)
+/src/qst/core/              @shlok926
+/specs/BB84_SPEC.md         @shlok926
+/specs/QBER_SPEC.md         @shlok926
+
+# Documentation suite
+/docs/                      @shlok926
+/specs/                     @shlok926
+
+# CI / release configuration
+/.github/                   @shlok926

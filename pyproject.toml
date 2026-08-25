@@ -1,0 +1,122 @@
+[build-system]
+# Build backend choice per docs/06_TECHNICAL_REQUIREMENTS.md §9 -- hatchling
+# selected as a modern, simple default. If this is contested/revisited,
+# record the decision as an ADR in docs/18_DECISION_LOG.md.
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "quantum-security-toolkit"
+version = "0.0.0"  # bumped per docs/19_RELEASE_PLAN.md -- v0.1 is Phase 1 (unpublished/dev)
+description = "An open-source toolkit for simulating, visualizing, and teaching quantum-secure communication, centered on the BB84 QKD protocol."
+readme = "README.md"
+requires-python = ">=3.11"  # per docs/06_TECHNICAL_REQUIREMENTS.md §1
+license = { text = "MIT" }  # suggested default -- see docs/18_DECISION_LOG.md note; confirm/replace before first release
+authors = [
+    { name = "ParaDise" },
+]
+keywords = ["quantum", "cryptography", "bb84", "qkd", "qiskit", "security", "education"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Education",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Security :: Cryptography",
+]
+
+# Dependency versions are intentionally left unpinned-to-exact here and
+# should be pinned precisely (see docs/06_TECHNICAL_REQUIREMENTS.md §2, §8)
+# once a specific Qiskit version is selected and validated against the
+# compatibility matrix in docs/06_TECHNICAL_REQUIREMENTS.md §7.
+dependencies = [
+    "qiskit>=1.0",
+    "qiskit-aer>=0.14",
+    "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+# Split per docs/06_TECHNICAL_REQUIREMENTS.md §9 -- keeps the core install
+# lightweight for CI/headless research use.
+viz = [
+    "matplotlib>=3.8",
+]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "hypothesis>=6.100",   # property-based testing, docs/14_TESTING_STRATEGY.md §5
+    "black>=24.0",
+    "ruff>=0.4",
+    "pip-audit>=2.7",      # dependency scanning, docs/11_SECURITY_ARCHITECTURE.md §10
+]
+
+[project.scripts]
+# CLI entrypoint per specs/CLI_SPEC.md -- module path is illustrative
+# pending the actual cli/ implementation.
+qst = "qst.cli.main:main"
+
+[project.urls]
+Documentation = "https://github.com/shlok926/quantum-security-toolkit/tree/main/docs"
+Specifications = "https://github.com/shlok926/quantum-security-toolkit/tree/main/specs"
+Issues = "https://github.com/shlok926/quantum-security-toolkit/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/qst"]
+
+# ---------------------------------------------------------------------------
+# black -- docs/16_CODING_STANDARDS.md §3
+# ---------------------------------------------------------------------------
+[tool.black]
+line-length = 88
+target-version = ["py311", "py312"]
+
+# ---------------------------------------------------------------------------
+# ruff -- docs/16_CODING_STANDARDS.md §3, §5 (complexity rules)
+# ---------------------------------------------------------------------------
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "C90", # mccabe complexity
+]
+# Architecture boundary enforcement (docs/07_SYSTEM_ARCHITECTURE.md §7,
+# docs/16_CODING_STANDARDS.md §6) is NOT yet expressible purely via ruff's
+# built-in rules -- import-linter or a custom pre-commit check is a
+# reasonable Future addition once src/qst has real modules to check.
+
+[tool.ruff.lint.mccabe]
+# Target complexity ceiling per docs/16_CODING_STANDARDS.md §5
+max-complexity = 10
+
+# ---------------------------------------------------------------------------
+# pytest -- docs/14_TESTING_STRATEGY.md
+# ---------------------------------------------------------------------------
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "unit: fast, isolated unit tests (docs/14_TESTING_STRATEGY.md §3)",
+    "integration: full SimulationOrchestrator end-to-end tests (§4)",
+    "golden: fixed-seed golden dataset regression tests (§8)",
+    "critical: security-critical regression tests per docs/11_SECURITY_ARCHITECTURE.md §4 -- must always pass before merge",
+]
+
+[tool.coverage.run]
+source = ["src/qst"]
+
+[tool.coverage.report]
+# Coverage targets per docs/14_TESTING_STRATEGY.md §12 are enforced by
+# reviewing the per-module report manually for now; a fail-under gate can
+# be added here once CI (docs/13_DEPLOYMENT.md) is wired up.
+show_missing = true

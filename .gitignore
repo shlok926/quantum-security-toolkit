@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.hypothesis/
+coverage.xml
+
+# Linting / formatting
+.ruff_cache/
+.mypy_cache/
+
+# Benchmarks (raw results committed selectively -- see docs/28_PERFORMANCE_BENCHMARK_PLAN.md §2 step 5)
+benchmarks/results/*
+!benchmarks/results/.gitkeep
+
+# Exported simulation results (local research output, not committed by default)
+*.qst-export.json
+*.qst-export.csv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env

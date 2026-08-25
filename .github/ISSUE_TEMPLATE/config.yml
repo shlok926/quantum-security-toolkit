@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Ask a Question (Discussions)
+    url: https://github.com/shlok926/quantum-security-toolkit/discussions/categories/q-a
+    about: For open-ended questions, prefer Discussions over an issue — see DISCUSSIONS_GUIDELINES.md
+  - name: Security Vulnerability
+    url: https://github.com/shlok926/quantum-security-toolkit/security/advisories/new
+    about: Please do NOT open a public issue for security vulnerabilities — see SECURITY.md

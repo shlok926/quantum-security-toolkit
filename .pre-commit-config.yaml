@@ -1,0 +1,26 @@
+# Pre-commit hooks, per docs/16_CODING_STANDARDS.md Future Improvements
+# ("Add pre-commit hook automation once repository exists").
+#
+# Install with:
+#   pip install pre-commit
+#   pre-commit install
+repos:
+  - repo: https://github.com/psf/black
+    rev: 24.4.2
+    hooks:
+      - id: black
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.4
+    hooks:
+      - id: ruff
+        args: [--fix]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-added-large-files
