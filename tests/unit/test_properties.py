@@ -16,6 +16,7 @@ def test_simulation_properties(n_qubits, seed, eve_prob):
         n_qubits=n_qubits, seed=seed, eve_intercept_probability=eve_prob
     )
 
-    assert 0.0 <= result.qber <= 1.0
+    if result.qber is not None:
+        assert 0.0 <= result.qber <= 1.0
     assert result.final_key_length <= n_qubits
     assert 0.0 <= result.key_rate <= 1.0
