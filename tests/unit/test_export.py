@@ -91,7 +91,11 @@ def test_export_failure():
     )
 
     # Trying to export to a non-existent directory should reliably fail regardless of privileges
-    bad_path = "/this/path/absolutely/does/not/exist/fail.json" if os.name != "nt" else "Z:\\nonexistent\\dir\\fail.json"
+    bad_path = (
+        "/this/path/absolutely/does/not/exist/fail.json"
+        if os.name != "nt"
+        else "Z:\\nonexistent\\dir\\fail.json"
+    )
 
     with pytest.raises(ExportError):
         write_export([result], bad_path, "json", include_key=False)

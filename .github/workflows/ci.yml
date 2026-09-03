@@ -20,6 +20,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Upgrade pip and base packaging tools
+        run: python -m pip install --upgrade pip setuptools wheel
       - run: pip install -e ".[dev]"
       - run: black --check src tests
       - run: ruff check src tests
@@ -39,6 +41,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Upgrade pip and base packaging tools
+        run: python -m pip install --upgrade pip setuptools wheel
       - run: pip install -e ".[dev,viz]"
       - name: Run unit + integration tests
         run: pytest --cov=qst --cov-report=xml
@@ -57,6 +61,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Upgrade pip and base packaging tools
+        run: python -m pip install --upgrade pip setuptools wheel
       - run: pip install -e ".[dev]"
       - name: Run pip-audit
         # Per docs/11_SECURITY_ARCHITECTURE.md §10 -- runs on every PR plus
