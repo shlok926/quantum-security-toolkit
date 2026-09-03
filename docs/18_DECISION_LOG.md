@@ -75,6 +75,18 @@ Every ADR in this log follows this structure:
 - **Consequences:** See `08_AI_ARCHITECTURE.md`.
 - **Future Review Date:** Revisit once Educational Mode (core, non-AI) ships and user feedback indicates demand (see `08_AI_ARCHITECTURE.md` Future Improvements).
 
+### ADR-005: Retain CLI and Export Implementation Ahead of Roadmap
+
+- **Status:** Accepted
+- **Context:** During Phase 1 development, the CLI (including Educational Mode routing), Batch/Research Mode, and CSV/JSON export functionality were implemented and successfully tested. However, per `15_ROADMAP.md`, these features are strictly defined as Phase 2 and Phase 3 scope.
+- **Problem:** Should the prematurely implemented Phase 2/3 code be deleted to strictly align the codebase with the Phase 1 roadmap, or retained?
+- **Decision:** Retain the implemented CLI, batch mode, and export code. This is an implementation sequencing deviation, not a roadmap change.
+- **Alternatives:** Delete or `git stash` the codebase and rebuild it later.
+- **Pros:** Preserves working, tested code; avoids duplicate effort in future phases.
+- **Cons:** Creates a temporary state where codebase features outpace the official roadmap phase, requiring careful documentation tracking to avoid misrepresenting project status.
+- **Consequences:** The code remains in the repository. Its current tested status is recorded as implemented/working in specs, but this must not be represented as evidence that Phase 2/3 are fully complete. The roadmap phase assignments in `docs/15_ROADMAP.md` remain unchanged. Future Phase 2/3 work will build on or properly complete these existing pieces.
+- **Future Review Date:** Revisit at the start of Phase 2 and Phase 3 to officially merge and finalize these components against their respective roadmap milestones.
+
 ## 4. Assumptions
 
 - Decisions recorded here reflect the project owner's reasoning at time of writing and may be revisited as an ADR update (never silently overwritten — a superseded decision is marked "Superseded by ADR-XXX," not deleted).
