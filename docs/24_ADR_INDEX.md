@@ -26,6 +26,7 @@
 | ADR-002 | Accepted | ParaDise | Library/CLI-first, no web service for v1.0 | `09_DATABASE_DESIGN.md`, `13_DEPLOYMENT.md`, `../specs/CLI_SPEC.md`, `12_UI_UX_DESIGN.md` | At v2.0 planning if web dashboard prioritized | Depends on ADR-001 (Python packaging assumptions) | Medium — shapes distribution and deployment strategy, not core protocol correctness |
 | ADR-003 | Accepted | ParaDise | No AI/ML in core simulation path | `08_AI_ARCHITECTURE.md`, `20_FUTURE_ENHANCEMENTS.md` | Once Educational Mode ships + user feedback exists | Independent of ADR-001/002 | Low-Medium — bounds scope of Future features only, does not affect core v1.0 delivery |
 | ADR-004 (candidate, not yet formalized) | Proposed | ParaDise | `ProtocolInterface` extension-point design (Strategy pattern for pluggable QKD protocols) | `07_SYSTEM_ARCHITECTURE.md` §8–§9, `../specs/SIMULATION_SPEC.md` §2 | To be formalized when the registry mechanism (dict vs. entry-points) is finalized during Phase 1 | Depends on ADR-001 | Medium — determines how extensible Phase 3+ protocol additions will be |
+| ADR-005 | Accepted | ParaDise | Retain CLI and Export Implementation Ahead of Roadmap | `15_ROADMAP.md`, `../specs/CLI_SPEC.md`, `../specs/EXPORT_SPEC.md`, `05_PRODUCT_REQUIREMENTS.md` | At the start of Phase 2 and Phase 3 | Independent | Medium — mitigates premature completion claims but requires careful doc updates |
 
 ## 3. Assumptions
 
