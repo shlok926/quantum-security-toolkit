@@ -1,0 +1,36 @@
+[
+  {
+    "qber": 0.0,
+    "final_key_length": 5,
+    "key_rate": 0.25,
+    "sifted_key": [
+      1,
+      0,
+      1,
+      1,
+      1
+    ],
+    "n_qubits": 20,
+    "seed": 42,
+    "eve_intercept_probability": 0.0,
+    "warnings": [],
+    "metadata": {}
+  },
+  {
+    "qber": 0.6,
+    "final_key_length": 5,
+    "key_rate": 0.25,
+    "sifted_key": [
+      1,
+      1,
+      1,
+      1,
+      0
+    ],
+    "n_qubits": 20,
+    "seed": 42,
+    "eve_intercept_probability": 1.0,
+    "warnings": [],
+    "metadata": {}
+  }
+]
