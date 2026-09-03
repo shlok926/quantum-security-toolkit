@@ -1,7 +1,7 @@
 # CLI_SPEC — Command-Line Interface Implementation Contract
 
 **Version:** 0.1.0 | **Last Updated:** 2026-07-22 | **Author:** ParaDise
-**Status:** Planned (Pre-Development) | **References:** `SIMULATION_SPEC.md`, `EXPORT_SPEC.md`, `../docs/10_API_SPECIFICATION.md`, `../docs/12_UI_UX_DESIGN.md`
+**Status:** Implemented (ahead of Phase 2/3 roadmap, see `../docs/18_DECISION_LOG.md` ADR-005) | **References:** `SIMULATION_SPEC.md`, `EXPORT_SPEC.md`, `../docs/10_API_SPECIFICATION.md`, `../docs/12_UI_UX_DESIGN.md`
 
 ---
 
@@ -17,10 +17,10 @@ qst <command> [options]
 
 | Command | Purpose | Status |
 |---|---|---|
-| `qst simulate` | Run a single BB84 simulation | Planned |
-| `qst batch` | Run a parameter-sweep batch simulation | Planned |
-| `qst --version` | Print installed QST and Qiskit versions | Planned |
-| `qst --help` | Auto-generated help (via `argparse`/`click`) | Planned |
+| `qst simulate` | Run a single BB84 simulation | Implemented early |
+| `qst batch` | Run a parameter-sweep batch simulation | Implemented early |
+| `qst --version` | Print installed QST and Qiskit versions | Implemented early |
+| `qst --help` | Auto-generated help (via `argparse`/`click`) | Implemented early |
 
 ## 2. `qst simulate` — Full Flag Reference
 
@@ -76,9 +76,9 @@ Exit codes map directly to the exception hierarchy in `../docs/10_API_SPECIFICAT
 | Item | Status |
 |---|---|
 | This specification | Current (design-complete) |
-| `qst simulate` | Planned |
-| `qst batch` | Planned |
-| Exit code contract | Planned |
+| `qst simulate` | Implemented early |
+| `qst batch` | Implemented early |
+| Exit code contract | Implemented early |
 
 ## Future Improvements
 
