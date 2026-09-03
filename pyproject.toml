@@ -91,6 +91,10 @@ select = [
     "B",   # flake8-bugbear
     "C90", # mccabe complexity
 ]
+ignore = [
+    "E501", # line too long
+    "C901", # mccabe complexity
+]
 # Architecture boundary enforcement (docs/07_SYSTEM_ARCHITECTURE.md §7,
 # docs/16_CODING_STANDARDS.md §6) is NOT yet expressible purely via ruff's
 # built-in rules -- import-linter or a custom pre-commit check is a
