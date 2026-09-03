@@ -26,7 +26,7 @@
 
 ## 1. Functional Requirements
 
-All items below are **Planned** (none implemented).
+All items below are **Implemented** for Phase 1 (FR-1 to FR-6, FR-11 to FR-13). FR-9 and FR-10 are **Implemented early** (ahead of Phase 2/3 roadmap, see `18_DECISION_LOG.md` ADR-005). Others remain **Planned**.
 
 | ID | Requirement | Priority |
 |---|---|---|
