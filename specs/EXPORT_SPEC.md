@@ -1,7 +1,7 @@
 # EXPORT_SPEC — Data Export Implementation Contract
 
 **Version:** 0.1.0 | **Last Updated:** 2026-07-22 | **Author:** ParaDise
-**Status:** Planned (Pre-Development) | **References:** `SIMULATION_SPEC.md`, `../docs/10_API_SPECIFICATION.md`, `../docs/11_SECURITY_ARCHITECTURE.md`
+**Status:** Implemented (ahead of Phase 2/3 roadmap, see `../docs/18_DECISION_LOG.md` ADR-005) | **References:** `SIMULATION_SPEC.md`, `../docs/10_API_SPECIFICATION.md`, `../docs/11_SECURITY_ARCHITECTURE.md`
 
 ---
 
@@ -80,9 +80,9 @@ CSV intentionally flattens `metadata` and omits `sifted_key` by default (same ra
 | Item | Status |
 |---|---|
 | This specification | Current (design-complete) |
-| JSON export | Planned |
-| CSV export | Planned |
-| `--include-key` flag | Planned |
+| JSON export | Implemented early |
+| CSV export | Implemented early |
+| `--include-key` flag | Implemented early |
 | Metadata-to-CSV-column expansion | Future / To Be Implemented if needed |
 
 ## Future Improvements
