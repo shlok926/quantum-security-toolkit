@@ -31,9 +31,7 @@ class Visualizer:
             a_bit = str(result.alice_bits[i]) if i < len(result.alice_bits) else "-"
             b_bit = str(result.bob_bits[i]) if i < len(result.bob_bits) else "-"
             match = (
-                "Yes"
-                if i < len(result.sifted_mask) and result.sifted_mask[i]
-                else "No"
+                "Yes" if i < len(result.sifted_mask) and result.sifted_mask[i] else "No"
             )
 
             lines.append(

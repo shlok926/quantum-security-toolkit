@@ -103,8 +103,15 @@ def build_parser():
         default="educational",
         help="Narration vs quiet behavior",
     )
-    sim_parser.add_argument("--output-dir", type=str, default=None, help="Directory to save visual output (plots)")
-    sim_parser.add_argument("--output", type=str, default=None, help="Export path (data)")
+    sim_parser.add_argument(
+        "--output-dir",
+        type=str,
+        default=None,
+        help="Directory to save visual output (plots)",
+    )
+    sim_parser.add_argument(
+        "--output", type=str, default=None, help="Export path (data)"
+    )
     sim_parser.add_argument(
         "--format", choices=["json", "csv"], default="json", help="Export format"
     )
@@ -124,8 +131,15 @@ def build_parser():
         "--eve-prob-range", type=str, required=True, help="Range start:stop:step"
     )
     batch_parser.add_argument("--seed", type=int, default=None, help="Random seed")
-    batch_parser.add_argument("--output-dir", type=str, default=None, help="Directory to save visual output (plots)")
-    batch_parser.add_argument("--output", type=str, required=True, help="Export path (data)")
+    batch_parser.add_argument(
+        "--output-dir",
+        type=str,
+        default=None,
+        help="Directory to save visual output (plots)",
+    )
+    batch_parser.add_argument(
+        "--output", type=str, required=True, help="Export path (data)"
+    )
     batch_parser.add_argument(
         "--format", choices=["json", "csv"], default="csv", help="Export format"
     )
@@ -146,6 +160,7 @@ def main():
     # Import Visualizer lazily to prevent matplotlib overhead for non-visual commands
     try:
         from qst.visualization.visualizer import Visualizer
+
         has_viz = True
     except ImportError:
         has_viz = False
@@ -201,7 +216,7 @@ def main():
                     print(
                         f"Summary: QBER={result.qber:.2%}, Final Key Length={result.final_key_length}, Key Rate={result.key_rate:.2f}"
                     )
-            
+
             if args.output_dir and has_viz:
                 out_path = Path(args.output_dir)
                 out_path.mkdir(parents=True, exist_ok=True)
@@ -237,14 +252,14 @@ def main():
             results = orchestrator.run_research_batch(
                 param_sweep, on_error=args.on_error
             )
-            
+
             if args.output_dir and has_viz:
                 out_path = Path(args.output_dir)
                 out_path.mkdir(parents=True, exist_ok=True)
                 fig = Visualizer.plot_qber_vs_interception(results)
                 fig.savefig(out_path / "batch_qber_plot.png")
                 print(f"Batch plot saved to {out_path / 'batch_qber_plot.png'}")
-                
+
             write_export(results, args.output, args.format, include_key=False)
 
     except ValidationError as e:
