@@ -104,6 +104,10 @@ class SimulationOrchestrator:
                 "No bits survived sifting and sampling — try a larger qubit count"
             )
 
+        sifted_mask = [False] * n_qubits
+        for idx in protocol_result.sifted_indices:
+            sifted_mask[idx] = True
+
         return SimulationResult(
             qber=qber if qber is not None else 0.0,
             final_key_length=final_key_length,
@@ -114,6 +118,11 @@ class SimulationOrchestrator:
             eve_intercept_probability=eve_intercept_probability,
             warnings=warnings,
             metadata={},
+            alice_bits=protocol_result.alice_bits,
+            alice_bases=protocol_result.alice_bases,
+            bob_bases=protocol_result.bob_bases,
+            bob_bits=protocol_result.bob_bits,
+            sifted_mask=sifted_mask,
         )
 
     def run_research_batch(

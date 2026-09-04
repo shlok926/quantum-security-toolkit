@@ -15,3 +15,10 @@ class SimulationResult:
     eve_intercept_probability: float
     warnings: list[str] = field(default_factory=list)
     metadata: dict[str, Any] = field(default_factory=dict)
+
+    # Visualization contract fields (Phase 2)
+    alice_bits: list[int] = field(default_factory=list)
+    alice_bases: list[str] = field(default_factory=list)
+    bob_bases: list[str] = field(default_factory=list)
+    bob_bits: list[int] = field(default_factory=list)
+    sifted_mask: list[bool] = field(default_factory=list)

@@ -109,6 +109,11 @@ def test_result_schema_consistency():
     assert hasattr(result, "sifted_key")
     assert hasattr(result, "warnings")
     assert hasattr(result, "metadata")
+    assert hasattr(result, "alice_bits")
+    assert hasattr(result, "alice_bases")
+    assert hasattr(result, "bob_bases")
+    assert hasattr(result, "bob_bits")
+    assert hasattr(result, "sifted_mask")
 
     assert isinstance(result.qber, float)
     assert isinstance(result.final_key_length, int)
@@ -116,3 +121,35 @@ def test_result_schema_consistency():
     assert isinstance(result.sifted_key, list)
     assert isinstance(result.warnings, list)
     assert isinstance(result.metadata, dict)
+    assert isinstance(result.alice_bits, list)
+    assert isinstance(result.alice_bases, list)
+    assert isinstance(result.bob_bases, list)
+    assert isinstance(result.bob_bits, list)
+    assert isinstance(result.sifted_mask, list)
+
+
+def test_visualization_contract_fields():
+    orchestrator = SimulationOrchestrator()
+    n_qubits = 20
+    result = orchestrator.run(
+        n_qubits=n_qubits, seed=777, eve_intercept_probability=0.0
+    )
+
+    # Check that lengths match n_qubits exactly
+    assert len(result.alice_bits) == n_qubits
+    assert len(result.alice_bases) == n_qubits
+    assert len(result.bob_bases) == n_qubits
+    assert len(result.bob_bits) == n_qubits
+    assert len(result.sifted_mask) == n_qubits
+
+    # Check exact types to ensure no silent conversions (e.g. bases remain strings)
+    assert all(isinstance(b, int) for b in result.alice_bits)
+    assert all(isinstance(b, str) for b in result.alice_bases)
+    assert all(isinstance(b, str) for b in result.bob_bases)
+    assert all(isinstance(b, int) for b in result.bob_bits)
+    assert all(isinstance(m, bool) for m in result.sifted_mask)
+
+    # Verify the sifted_mask correctly flags matches between Alice and Bob's bases
+    for i in range(n_qubits):
+        expected_match = result.alice_bases[i] == result.bob_bases[i]
+        assert result.sifted_mask[i] == expected_match
