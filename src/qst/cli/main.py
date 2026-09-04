@@ -103,7 +103,8 @@ def build_parser():
         default="educational",
         help="Narration vs quiet behavior",
     )
-    sim_parser.add_argument("--output", type=str, default=None, help="Export path")
+    sim_parser.add_argument("--output-dir", type=str, default=None, help="Directory to save visual output (plots)")
+    sim_parser.add_argument("--output", type=str, default=None, help="Export path (data)")
     sim_parser.add_argument(
         "--format", choices=["json", "csv"], default="json", help="Export format"
     )
@@ -123,7 +124,8 @@ def build_parser():
         "--eve-prob-range", type=str, required=True, help="Range start:stop:step"
     )
     batch_parser.add_argument("--seed", type=int, default=None, help="Random seed")
-    batch_parser.add_argument("--output", type=str, required=True, help="Export path")
+    batch_parser.add_argument("--output-dir", type=str, default=None, help="Directory to save visual output (plots)")
+    batch_parser.add_argument("--output", type=str, required=True, help="Export path (data)")
     batch_parser.add_argument(
         "--format", choices=["json", "csv"], default="csv", help="Export format"
     )
@@ -140,6 +142,13 @@ def build_parser():
 def main():
     parser = build_parser()
     args = parser.parse_args()
+
+    # Import Visualizer lazily to prevent matplotlib overhead for non-visual commands
+    try:
+        from qst.visualization.visualizer import Visualizer
+        has_viz = True
+    except ImportError:
+        has_viz = False
 
     try:
         orchestrator = SimulationOrchestrator()
@@ -182,6 +191,8 @@ def main():
             )
 
             if not args.quiet and args.mode == "educational":
+                if has_viz:
+                    print("\n" + Visualizer.render_basis_table(result) + "\n")
                 print(
                     f"Summary: QBER={result.qber:.2%}, Final Key Length={result.final_key_length}, Key Rate={result.key_rate:.2f}"
                 )
@@ -190,6 +201,13 @@ def main():
                     print(
                         f"Summary: QBER={result.qber:.2%}, Final Key Length={result.final_key_length}, Key Rate={result.key_rate:.2f}"
                     )
+            
+            if args.output_dir and has_viz:
+                out_path = Path(args.output_dir)
+                out_path.mkdir(parents=True, exist_ok=True)
+                fig = Visualizer.plot_qber_vs_interception([result])
+                fig.savefig(out_path / "qber_plot.png")
+                print(f"Plot saved to {out_path / 'qber_plot.png'}")
 
             if args.output:
                 write_export([result], args.output, args.format, args.include_key)
@@ -204,7 +222,6 @@ def main():
                 raise ValidationError(f"Invalid eve-prob-range: {e}") from e
 
             # Parse eve_prob_range correctly
-            # We want inclusive points if they match. e.g. 0.0:1.0:0.25 -> 0.0, 0.25, 0.5, 0.75, 1.0
             count = int(round((stop - start) / step)) + 1
             eve_probs = [start + i * step for i in range(count)]
 
@@ -220,6 +237,14 @@ def main():
             results = orchestrator.run_research_batch(
                 param_sweep, on_error=args.on_error
             )
+            
+            if args.output_dir and has_viz:
+                out_path = Path(args.output_dir)
+                out_path.mkdir(parents=True, exist_ok=True)
+                fig = Visualizer.plot_qber_vs_interception(results)
+                fig.savefig(out_path / "batch_qber_plot.png")
+                print(f"Batch plot saved to {out_path / 'batch_qber_plot.png'}")
+                
             write_export(results, args.output, args.format, include_key=False)
 
     except ValidationError as e:
