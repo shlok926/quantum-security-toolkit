@@ -1,4 +1,3 @@
-
 # We need matplotlib for typing and assertions, but we should handle if it's missing (though it shouldn't be during tests since we added viz to optional dependencies, wait, we didn't add viz to testing environment? `pyproject.toml` says `viz` has `matplotlib>=3.8`. For testing, we probably have it installed, but let's just import it.)
 import matplotlib.pyplot as plt
 
