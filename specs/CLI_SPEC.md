@@ -44,7 +44,6 @@ qst <command> [options]
 | `--eve-prob-range` | string, e.g. `"0.0:1.0:0.1"` (start:stop:step) | Required for a sweep | Parsed into the `param_sweep` list passed to `run_research_batch` (`SIMULATION_SPEC.md` §4) |
 | `--seed` | int | Random per run if omitted | If provided, the *same* seed is reused across the sweep — an explicit choice the user must make deliberately, since reusing one seed across an Eve-probability sweep is a reasonable default for isolating the effect of `eve-prob` alone from run-to-run randomness |
 | `--output` | path | Required for batch (no useful stdout format for many rows) | `EXPORT_SPEC.md` |
-| `--output-dir` | path | None | Directory to optionally save visual output (plots) — Implemented (Phase 2) |
 | `--format` | choice: `json`, `csv` | `csv` | Batch defaults to CSV since it's naturally tabular |
 | `--on-error` | choice: `continue`, `abort` | `continue` | Maps to the batch failure policy in `SIMULATION_SPEC.md` §4 |
 
